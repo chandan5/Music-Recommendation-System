@@ -11,4 +11,3 @@ def cosineMatrix(ratingMatrix, noitems):
             sim[j][i] = sim[i][j]
     return sim
 
-
