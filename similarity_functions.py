@@ -7,7 +7,15 @@ def cosineMatrix(ratingMatrix, noitems):
     sim = np.zeros((noitems, noitems))
     for i in xrange(noitems):
         for j in xrange(i,noitems):
-            sim[i][j] = cosine(ratingMatrix[:,i],ratingMatrix[:,j])
+            sim[i][j] = cosine(ratingMatrix[:, i],ratingMatrix[:, j])
             sim[j][i] = sim[i][j]
     return sim
 
+def pearsonCosineMatrix(ratingMatrix, noitems):
+    sim = np.zeros((noitems, noitems))
+    for i in xrange(noitems):
+        for j in xrange(i,noitems):
+            sim[i][j] = cosine(ratingMatrix[:, i] - np.mean(ratingMatrix[:, i]),
+                ratingMatrix[:, j] - np.mean(ratingMatrix[:, j]))
+            sim[j][i] = sim[i][j]
+    return sim
