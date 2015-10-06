@@ -10,9 +10,8 @@ def load(fileno, training=True):
     basedir = "ml-100k/u%s." % (fileno)
     with open(basedir + 'base') as f:
         training = np.loadtxt(f)
-    training = np.delete(training, len(training[0])-1, 1)
     with open(basedir + 'test') as f:
-        test = np.loadtxt(f)
+        test = np.loadtxt(f)    
     with open('ml-100k/u.info') as f:
         metafile = np.genfromtxt(f)
     metafile = np.delete(metafile, len(metafile[0])-1, 1)
@@ -20,6 +19,4 @@ def load(fileno, training=True):
     metadata['users'] = metafile[0][0]
     metadata['items'] = metafile[1][0]
     metadata['ratings'] = metafile[2][0]
-    return training, test, metadata
-
-
+    return training[:, :-1], test[:, :-1], metadata
