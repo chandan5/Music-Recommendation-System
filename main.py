@@ -4,8 +4,8 @@ import utils
 import similarity_functions as sf
 np.set_printoptions(threshold='nan')
 
-def main(load=True):
-    training, test, metadata = parse.load(1)
+def main(load=True, setno):
+    training, test, metadata = parse.load(setno)
     if not load:
         ratingMatrix = utils.constructRatingMatrix(training, metadata)
         similarity = sf.cosineMatrix(ratingMatrix)
@@ -27,4 +27,5 @@ def main(load=True):
     return np.abs(error).mean()
 
 if __name__ == '__main__':
-    print main(False)
+    for i in xrange(1, 6):
+        print main(False, setno=i)
