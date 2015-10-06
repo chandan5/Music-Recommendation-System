@@ -8,8 +8,10 @@ def main():
     ratingMatrix = utils.constructRatingMatrix(training, metadata)
     similarity = sf.cosineMatrix(ratingMatrix, int(metadata['items']))
     print "similarity done"
-    predictRatingMatrix =  utils.predictRating(similarity, ratingMatrix)
-    return predictRatingMatrix
+    prediction = utils.predictRating(similarity, ratingMatrix)
+    predictionOnTest = prediction[test[:, 0]-1, test[:, 1]-1]
+    error = predictionOnTest - test[:, 2]
+    print np.abs(error).mean()
 
 if __name__ == '__main__':
     print main()
