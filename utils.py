@@ -1,5 +1,6 @@
 import numpy as np
 import parse
+np.set_printoptions(threshold='nan')
 
 
 def constructRatingMatrix(data, metadata):
@@ -16,7 +17,9 @@ def predictRating(similarity, ratingMatrix):
             if prediction[userid][item]: continue
 
             # calculate average
+            import pdb; pdb.set_trace();
             s = np.copy(similarity[item])
             s /= np.linalg.norm(s)
             prediction[userid][item] = np.dot(ratingMatrix[userid], s)
+
     return prediction
