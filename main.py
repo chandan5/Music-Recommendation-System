@@ -9,10 +9,10 @@ def main(load=True, setno):
     if not load:
         ratingMatrix = utils.constructRatingMatrix(training, metadata)
         similarity = sf.cosineMatrix(ratingMatrix)
-        np.savetxt('similarity.txt', similarity)
+        np.savetxt('similarity%s.txt' % (setno), similarity)
         print "similarity done"
         prediction = utils.predictRating(similarity, ratingMatrix)
-        np.savetxt('prediction.txt', prediction)
+        np.savetxt('prediction%s.txt' % (setno), prediction)
         print "prediction done"
     else:
         with open('similarity.txt') as f:
