@@ -7,7 +7,9 @@ def main():
     training, test, metadata = parse.load(1)
     ratingMatrix = utils.constructRatingMatrix(training, metadata)
     similarity = sf.cosineMatrix(ratingMatrix, int(metadata['items']))
-    return utils.predictRating(similarity, ratingMatrix)
+    print "similarity done"
+    predictRatingMatrix =  utils.predictRating(similarity, ratingMatrix)
+    return predictRatingMatrix
 
 if __name__ == '__main__':
     print main()
