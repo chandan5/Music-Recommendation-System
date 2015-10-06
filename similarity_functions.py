@@ -1,7 +1,10 @@
 import numpy as np
 
 def cosine(a, b):
-    return np.dot(a, b)/(np.linalg.norm(a)*np.linalg.norm(b))
+    norm = np.linalg.norm(a)*np.linalg.norm(b)
+    if not norm:
+        return 0
+    return np.dot(a, b)/norm
 
 def cosineMatrix(ratingMatrix, noitems):
     sim = np.zeros((noitems, noitems))

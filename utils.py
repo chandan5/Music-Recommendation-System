@@ -17,6 +17,7 @@ def predictRating(similarity, ratingMatrix):
 
             # calculate average
             s = np.copy(similarity[item])
-            s /= np.linalg.norm(s)
+            # condition when all elements are zero
+            s = s/np.sum(s) if np.sum(s) else s
             prediction[userid][item] = np.dot(ratingMatrix[userid], s)
     return prediction
