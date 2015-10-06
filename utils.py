@@ -11,16 +11,17 @@ def constructRatingMatrix(data, metadata):
 
 def predictRating(similarity, ratingMatrix):
     prediction = np.copy(ratingMatrix)
-
-    for userid in xrange(np.shape(ratingMatrix)[0]):
-        for item in xrange(np.shape(ratingMatrix)[1]):
+    nousers = np.shape(ratingMatrix)[0]
+    noitems = np.shape(ratingMatrix)[1]
+    for userid in xrange(nousers):
+        for item in xrange(noitems):
             if prediction[userid][item]: continue
 
             # calculate average
-            import pdb; pdb.set_trace();
+            #import pdb; pdb.set_trace();
             s = np.copy(similarity[item])
             # condition when all elements are zero
             s = s/np.sum(s) if np.sum(s) else s
             prediction[userid][item] = np.dot(ratingMatrix[userid], s)
-
+        print userid
     return prediction
