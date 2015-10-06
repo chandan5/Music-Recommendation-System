@@ -13,15 +13,15 @@ def predictRating(similarity, ratingMatrix):
     prediction = np.copy(ratingMatrix)
     nousers = np.shape(ratingMatrix)[0]
     noitems = np.shape(ratingMatrix)[1]
-    for userid in xrange(nousers):
-        for item in xrange(noitems):
+    for item in xrange(noitems):
+        s = np.copy(similarity[item])
+        for userid in xrange(nousers):
             if prediction[userid][item]: continue
-
-            # calculate average
-            #import pdb; pdb.set_trace();
-            s = np.copy(similarity[item])
-            # condition when all elements are zero
-            s = s/np.sum(s) if np.sum(s) else s
-            prediction[userid][item] = np.dot(ratingMatrix[userid], s)
-        print userid
+            p = s*ratingMatrix[userid]
+            c = p/ratingMatrix[userid]
+            c[np.isnan(c)] = 0
+            SUM = np.sum(c)
+            prediction[userid][item] = np.dot(ratingMatrix[userid], c)
+            prediction[userid][item] = 0 if SUM == 0 else prediction[userid][item]/SUM
+        print item
     return prediction

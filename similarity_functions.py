@@ -29,6 +29,7 @@ def pearsonCosineMatrix(ratingMatrix):
             sim[i][j] = cosine(ratingMatrix[:, i] - np.mean(ratingMatrix[:, i]),
                 ratingMatrix[:, j] - np.mean(ratingMatrix[:, j]))
             sim[j][i] = sim[i][j]
+        print i
     return sim
 
 def adjustedCosineMatrix(ratingMatrix):
@@ -46,4 +47,5 @@ def adjustedCosineMatrix(ratingMatrix):
             sim[i][j] = cosine(ratingMatrix[:, i] - user_avg_rating,
                 ratingMatrix[:, j] - user_avg_rating)
             sim[j][i] = sim[i][j]
+        print i
     return sim
