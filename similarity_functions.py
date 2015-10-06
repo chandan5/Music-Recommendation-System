@@ -37,11 +37,14 @@ def adjustedCosineMatrix(ratingMatrix):
     noitems = np.shape(ratingMatrix)[1]
     sim = np.zeros((noitems, noitems))
     user_avg_rating = np.zeros(nousers)
-    #import pdb; pdb.set_trace();  
+    #import pdb; pdb.set_trace();
+    zero_items = 0  
     for u in xrange(nousers):
         for i in xrange(noitems):
+            if(ratingMatrix[u, i] == 0):
+                zero_items += 1
             user_avg_rating[u] += ratingMatrix[u, i]
-        user_avg_rating[u] /= noitems                
+        user_avg_rating[u] /= zero_items                
     for i in xrange(noitems):
         for j in xrange(i,noitems):
             sim[i][j] = cosine(ratingMatrix[:, i] - user_avg_rating,
