@@ -1,12 +1,14 @@
 import numpy as np
 
 def cosine(a, b):
-    dp = np.dot(a, b)
     p = a*b
-    norm = np.linalg.norm(p/b)*np.linalg.norm(p/a)
+    c, d = p/b, p/a
+    c[np.isnan(c)] = 0
+    d[np.isnan(d)] = 0
+    norm = np.linalg.norm(c)*np.linalg.norm(d)
     if not norm:
         return 0
-    return dp/norm
+    return np.dot(a, b)/norm
 
 def cosineMatrix(ratingMatrix):
     noitems = np.shape(ratingMatrix)[1]
