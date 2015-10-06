@@ -1,23 +1,25 @@
 import numpy as np
 
-metadata = {'users': 0,
-            'items': 0,
-            'ratings': 0,
-            }
-def load():
+def load(fileno, training=True):
+    """
+    takes the training file no and return training and test data
+    Ex. fileno = 1 for u1.base and u1.test
+        fileno = 5 for u5.base and u5.test
+    """
     # userid songid user-rating
-    with open('ml-100k/u.data') as f:
-        data = np.loadtxt(f)
-    data = np.delete(data, len(data[0])-1, 1)
+    basedir = "ml-100k/u%s." % (fileno)
+    with open(basedir + 'base') as f:
+        training = np.loadtxt(f)
+    training = np.delete(training, len(training[0])-1, 1)
+    with open(basedir + 'test') as f:
+        test = np.loadtxt(f)
     with open('ml-100k/u.info') as f:
         metafile = np.genfromtxt(f)
     metafile = np.delete(metafile, len(metafile[0])-1, 1)
+    metadata = {}
     metadata['users'] = metafile[0][0]
     metadata['items'] = metafile[1][0]
     metadata['ratings'] = metafile[2][0]
-    #import pdb; pdb.set_trace()
-    return data, metadata
-
-#print load()
+    return training, test, metadata
 
 
