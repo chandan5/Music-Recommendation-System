@@ -8,7 +8,7 @@ def main(load=True):
     training, test, metadata = parse.load(1)
     if not load:
         ratingMatrix = utils.constructRatingMatrix(training, metadata)
-        similarity = sf.pearsonCosineMatrix(ratingMatrix)
+        similarity = sf.cosineMatrix(ratingMatrix)
         np.savetxt('similarity.txt', similarity)
         print "similarity done"
         prediction = utils.predictRating(similarity, ratingMatrix)
