@@ -8,8 +8,12 @@ def main():
     training, test, metadata = parse.load(1)
     ratingMatrix = utils.constructRatingMatrix(training, metadata)
     similarity = sf.cosineMatrix(ratingMatrix)
+    with open('similarity.txt', 'w') as f:
+        np.save(f, similarity)
     print "similarity done"
     prediction = utils.predictRating(similarity, ratingMatrix)
+    with open('prediction.txt', 'w') as f:
+        np.save(f, prediction)
     print "prediction done"
     import pdb; pdb.set_trace()
     predictionOnTest = prediction[test[:, 0]-1, test[:, 1]-1]
